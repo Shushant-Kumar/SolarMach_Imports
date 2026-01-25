@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}{{ panel.name }} - Solar Technology | SolarMach Imports{% endblock %}
+{% block meta_description %}Learn everything about {{ panel.name }}: how they work, advantages, efficiency ranges ({{
+panel.efficiency_range }}), and ideal use cases for your solar energy needs.{% endblock %}
+
+{% block content %}
+<section class="panel-detail-hero" style="background: linear-gradient(135deg, {{ panel.color }}, {{ panel.color }}cc);">
+    <div class="hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('home') }}">Home</a>
+            <span class="separator">›</span>
+            <a href="{{ url_for('solar_technology') }}">Solar Technology</a>
+            <span class="separator">›</span>
+            <span class="current">{{ panel.name }}</span>
+        </nav>
+        <img src="{{ url_for('static', filename=panel.icon) }}" alt="{{ panel.name }}" class="panel-img-hero">
+        <h1 class="animate-fade-in">{{ panel.name }}</h1>
+        <p class="hero-tagline animate-fade-in-delay">{{ panel.description }}</p>
+        <div class="hero-efficiency">
+            <span class="efficiency-label">Efficiency Range</span>
+            <span class="efficiency-value-large">{{ panel.efficiency_range }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="panel-detail-content">
+    <div class="content-grid">
+        <!-- How It Works Section -->
+        <article class="detail-section how-it-works animate-on-scroll">
+            <div class="section-header">
+                <span class="section-icon">⚙️</span>
+                <h2>How It Works</h2>
+            </div>
+            <div class="section-body">
+                <p>{{ panel.how_it_works }}</p>
+            </div>
+        </article>
+
+        <!-- Advantages Section -->
+        <article class="detail-section advantages animate-on-scroll">
+            <div class="section-header">
+                <span class="section-icon">✅</span>
+                <h2>Key Advantages</h2>
+            </div>
+            <div class="section-body">
+                <ul class="advantages-list-detailed">
+                    {% for advantage in panel.advantages %}
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span>{{ advantage }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </article>
+
+        <!-- Efficiency Section -->
+        <article class="detail-section efficiency animate-on-scroll">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2>Efficiency & Performance</h2>
+            </div>
+            <div class="section-body">
+                <div class="efficiency-display-large">
+                    <div class="efficiency-meter">
+                        <div class="meter-fill"
+                            style="width: {{ panel.efficiency_range.split('-')[1].replace('%', '') }}%;"></div>
+                    </div>
+                    <div class="efficiency-details">
+                        <div class="efficiency-stat">
+                            <span class="stat-value">{{ panel.efficiency_range }}</span>
+                            <span class="stat-label">Typical Efficiency Range</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="efficiency-note">
+                    Efficiency measures how much sunlight is converted into usable electricity.
+                    Higher efficiency means more power from the same surface area.
+                </p>
+            </div>
+        </article>
+
+        <!-- Ideal Use Cases Section -->
+        <article class="detail-section use-cases animate-on-scroll">
+            <div class="section-header">
+                <span class="section-icon">🎯</span>
+                <h2>Ideal Use Cases</h2>
+            </div>
+            <div class="section-body">
+                <div class="use-cases-grid">
+                    {% for use_case in panel.ideal_use_cases %}
+                    <div class="use-case-item">
+                        <span class="use-case-bullet">►</span>
+                        <span>{{ use_case }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- Other Panel Types -->
+<section class="other-panels">
+    <h2>Explore Other Panel Types</h2>
+    <div class="other-panels-grid">
+        {% if panel_key != 'monocrystalline' %}
+        <a href="{{ url_for('panel_detail', panel_type='monocrystalline') }}" class="other-panel-card">
+            <span class="icon">💎</span>
+            <span class="name">Monocrystalline</span>
+        </a>
+        {% endif %}
+        {% if panel_key != 'polycrystalline' %}
+        <a href="{{ url_for('panel_detail', panel_type='polycrystalline') }}" class="other-panel-card">
+            <span class="icon">🔷</span>
+            <span class="name">Polycrystalline</span>
+        </a>
+        {% endif %}
+        {% if panel_key != 'thin_film' %}
+        <a href="{{ url_for('panel_detail', panel_type='thin_film') }}" class="other-panel-card">
+            <span class="icon">📄</span>
+            <span class="name">Thin-Film</span>
+        </a>
+        {% endif %}
+        {% if panel_key != 'bipv' %}
+        <a href="{{ url_for('panel_detail', panel_type='bipv') }}" class="other-panel-card">
+            <span class="icon">🏗️</span>
+            <span class="name">BIPV</span>
+        </a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Interested in {{ panel.name }}?</h2>
+        <p>Our solar experts can help you determine if {{ panel.name.lower() }} are the right choice for your home or
+            business.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn-primary">Get a Free Consultation</a>
+            <a href="{{ url_for('solar_technology') }}" class="btn-secondary">Compare All Types</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

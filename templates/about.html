@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - SolarMach Imports{% endblock %}
+{% block meta_description %}Learn about SolarMach Imports - our mission to provide sustainable solar energy solutions
+and our commitment to a greener future.{% endblock %}
+
+{% block content %}
+<section class="page-hero about-hero">
+    <div class="page-hero-content">
+        <h1 class="animate-fade-in">About SolarMach Imports</h1>
+        <p class="animate-fade-in-delay">Pioneering sustainable energy solutions since 2015.
+            We're committed to making solar energy accessible for every home and business.</p>
+    </div>
+</section>
+
+<section class="about-content">
+    <div class="about-grid">
+        <article class="about-section animate-on-scroll">
+            <h2>Our Mission</h2>
+            <p>At SolarMach Imports, we believe that everyone deserves access to clean, renewable energy.
+                Our mission is to accelerate the world's transition to sustainable energy by providing
+                high-quality solar solutions that are affordable, reliable, and efficient.</p>
+        </article>
+
+        <article class="about-section animate-on-scroll">
+            <h2>Our Story</h2>
+            <p>Founded in 2015 by a team of environmental engineers and renewable energy enthusiasts,
+                SolarMach Imports started with a simple idea: make solar energy accessible to everyone.
+                What began as a small operation has grown into one of the leading solar solution providers,
+                serving thousands of homes and businesses across the country.</p>
+        </article>
+
+        <article class="about-section animate-on-scroll">
+            <h2>Our Values</h2>
+            <ul class="values-list">
+                <li><strong>Sustainability First:</strong> Every decision we make considers its environmental impact.
+                </li>
+                <li><strong>Quality & Reliability:</strong> We only work with premium, tested solar technologies.</li>
+                <li><strong>Customer Focus:</strong> Your energy independence is our top priority.</li>
+                <li><strong>Innovation:</strong> We continuously explore new technologies and solutions.</li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+<section class="team-section">
+    <h2>Why Choose SolarMach?</h2>
+    <div class="features-grid">
+        <div class="feature-card animate-on-scroll">
+            <span class="feature-icon">🔧</span>
+            <h3>Expert Installation</h3>
+            <p>Certified technicians with years of experience ensuring perfect installation every time.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+            <span class="feature-icon">📞</span>
+            <h3>24/7 Support</h3>
+            <p>Round-the-clock customer support to address any concerns or questions.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+            <span class="feature-icon">💰</span>
+            <h3>Competitive Pricing</h3>
+            <p>Best-in-class solar solutions at prices that make sense for your budget.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+            <span class="feature-icon">🌍</span>
+            <h3>Environmental Impact</h3>
+            <p>Join thousands of families reducing their carbon footprint with clean energy.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Join the Solar Revolution?</h2>
+        <p>Take the first step towards energy independence and a sustainable future.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn-primary">Contact Us Today</a>
+            <a href="{{ url_for('solar_technology') }}" class="btn-secondary">Explore Solar Options</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

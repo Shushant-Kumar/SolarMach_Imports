@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Solar Technology Guide - SolarMach Imports{% endblock %}
+{% block meta_description %}Learn about different types of solar panels including Monocrystalline, Polycrystalline,
+Thin-Film, and BIPV. Discover how each works, their advantages, and ideal use cases.{% endblock %}
+
+{% block content %}
+<section class="page-hero solar-tech-hero">
+    <div class="page-hero-content">
+        <h1 class="animate-fade-in">Solar Technology Guide</h1>
+        <p class="animate-fade-in-delay">Understanding the different types of solar panels helps you make an informed
+            decision for your energy needs. Explore our comprehensive guide to find the perfect solution.</p>
+    </div>
+</section>
+
+<section class="solar-intro">
+    <div class="intro-content">
+        <h2>How Solar Panels Work</h2>
+        <p>Solar panels convert sunlight into electricity through the photovoltaic effect. When photons from sunlight
+            hit the silicon cells in a solar panel, they knock electrons loose from their atoms. This flow of electrons
+            creates an electrical current that can be captured and used to power your home or business.</p>
+        <div class="intro-stats">
+            <div class="stat-item">
+                <span class="stat-number">30+</span>
+                <span class="stat-label">Years Lifespan</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">25%</span>
+                <span class="stat-label">Max Efficiency</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">90%</span>
+                <span class="stat-label">Power at Year 25</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="panel-types-section">
+    <h2>Types of Solar Panels</h2>
+    <p class="section-subtitle">Choose the right technology for your specific needs</p>
+
+    <div class="panel-types-grid">
+        {% for key, panel in panel_types.items() %}
+        <article class="panel-type-card animate-on-scroll" id="{{ key }}">
+            <div class="panel-card-header"
+                style="background: linear-gradient(135deg, {{ panel.color }}, {{ panel.color }}dd);">
+                <img src="{{ url_for('static', filename=panel.icon) }}" alt="{{ panel.name }}" class="panel-img-large">
+                <h3>{{ panel.name }}</h3>
+                <p class="panel-tagline">{{ panel.description }}</p>
+            </div>
+            <div class="panel-card-body">
+                <div class="panel-section">
+                    <h4>⚙️ How It Works</h4>
+                    <p>{{ panel.how_it_works[:300] }}...</p>
+                </div>
+
+                <div class="panel-section">
+                    <h4>✅ Key Advantages</h4>
+                    <ul class="advantages-list">
+                        {% for advantage in panel.advantages[:4] %}
+                        <li>{{ advantage }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="panel-stats">
+                    <div class="efficiency-display">
+                        <span class="efficiency-label">Efficiency Range</span>
+                        <span class="efficiency-value">{{ panel.efficiency_range }}</span>
+                    </div>
+                </div>
+
+                <a href="{{ url_for('panel_detail', panel_type=key) }}" class="btn-learn-more">
+                    Learn More <span class="arrow">→</span>
+                </a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="comparison-section">
+    <h2>Quick Comparison</h2>
+    <p class="section-subtitle">Compare all panel types at a glance</p>
+
+    <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Monocrystalline</th>
+                    <th>Polycrystalline</th>
+                    <th>Thin-Film</th>
+                    <th>BIPV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Efficiency</td>
+                    <td><span class="rating high">17-22%</span></td>
+                    <td><span class="rating medium">15-17%</span></td>
+                    <td><span class="rating low">10-13%</span></td>
+                    <td><span class="rating medium">10-20%</span></td>
+                </tr>
+                <tr>
+                    <td>Cost</td>
+                    <td><span class="cost">$$$</span></td>
+                    <td><span class="cost">$$</span></td>
+                    <td><span class="cost">$</span></td>
+                    <td><span class="cost">$$$$</span></td>
+                </tr>
+                <tr>
+                    <td>Space Required</td>
+                    <td>Low</td>
+                    <td>Medium</td>
+                    <td>High</td>
+                    <td>Integrated</td>
+                </tr>
+                <tr>
+                    <td>Lifespan</td>
+                    <td>25-30 years</td>
+                    <td>25-30 years</td>
+                    <td>15-20 years</td>
+                    <td>20-30 years</td>
+                </tr>
+                <tr>
+                    <td>Aesthetics</td>
+                    <td>Excellent</td>
+                    <td>Good</td>
+                    <td>Good</td>
+                    <td>Best</td>
+                </tr>
+                <tr>
+                    <td>Best For</td>
+                    <td>Residential</td>
+                    <td>Large Areas</td>
+                    <td>Curved Surfaces</td>
+                    <td>New Buildings</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Go Solar?</h2>
+        <p>Our experts will help you choose the right solar solution for your specific needs and budget.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn-primary">Get a Free Quote</a>
+            <a href="{{ url_for('about') }}" class="btn-secondary">Learn About Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

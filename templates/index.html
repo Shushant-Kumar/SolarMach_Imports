@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}SolarMach Imports - Sustainable Energy Solutions{% endblock %}
+{% block meta_description %}Transform your home with clean, sustainable solar energy. Join thousands of families making
+a positive environmental impact while reducing energy costs.{% endblock %}
+
+{% block content %}
+<section class="hero" id="home" role="main">
+    <div class="hero-content">
+        <h1 class="animate-fade-in">Harvesting Sunlight,<br>Cultivating Tomorrow</h1>
+        <p class="animate-fade-in-delay">Transform your home with clean, sustainable solar energy. Join thousands of
+            families making a positive environmental impact while reducing energy costs.</p>
+        <div class="hero-actions animate-fade-in-delay-2">
+            <a href="{{ url_for('solar_technology') }}" class="btn-primary">Explore Solar Technology</a>
+            <a href="{{ url_for('contact') }}" class="btn-secondary">Get a Quote</a>
+        </div>
+    </div>
+
+    <div class="hero-img">
+        <div class="hero-img-wrapper">
+            <img src="{{ url_for('static', filename='images/hero-image.png') }}"
+                alt="Happy family standing near solar panels on their home" class="animate-slide-in" loading="eager">
+        </div>
+    </div>
+</section>
+
+<!-- Solar Technology Preview Section -->
+<section class="solar-preview" id="solar-preview">
+    <h2>Discover Solar Technology</h2>
+    <p class="section-subtitle">Find the perfect solar solution for your needs</p>
+    <div class="panel-preview-grid">
+        <a href="{{ url_for('panel_detail', panel_type='monocrystalline') }}"
+            class="panel-preview-card animate-on-scroll">
+            <img src="{{ url_for('static', filename='images/monocrystalline.jpg') }}" alt="Monocrystalline Solar Panel"
+                class="panel-preview-img">
+            <h3>Monocrystalline</h3>
+            <p>Highest efficiency, premium performance</p>
+            <span class="efficiency-badge">17-22% Efficiency</span>
+        </a>
+        <a href="{{ url_for('panel_detail', panel_type='polycrystalline') }}"
+            class="panel-preview-card animate-on-scroll">
+            <img src="{{ url_for('static', filename='images/polycrystalline.jpg') }}" alt="Polycrystalline Solar Panel"
+                class="panel-preview-img">
+            <h3>Polycrystalline</h3>
+            <p>Cost-effective, reliable choice</p>
+            <span class="efficiency-badge">15-17% Efficiency</span>
+        </a>
+        <a href="{{ url_for('panel_detail', panel_type='thin_film') }}" class="panel-preview-card animate-on-scroll">
+            <img src="{{ url_for('static', filename='images/Thin_film.jpeg') }}" alt="Thin-Film Solar Panel"
+                class="panel-preview-img">
+            <h3>Thin-Film</h3>
+            <p>Flexible, lightweight options</p>
+            <span class="efficiency-badge">10-13% Efficiency</span>
+        </a>
+        <a href="{{ url_for('panel_detail', panel_type='bipv') }}" class="panel-preview-card animate-on-scroll">
+            <img src="{{ url_for('static', filename='images/BIPV.jpg') }}" alt="BIPV Solar Panel"
+                class="panel-preview-img">
+            <h3>BIPV</h3>
+            <p>Integrated architectural solutions</p>
+            <span class="efficiency-badge">10-20% Efficiency</span>
+        </a>
+    </div>
+    <div class="cta-center">
+        <a href="{{ url_for('solar_technology') }}" class="btn-primary">Learn More About Solar Panels</a>
+    </div>
+</section>
+
+<section class="impact" id="impact">
+    <h2>Our Environmental Impact</h2>
+    <p class="impact-subtitle">Making a real difference, one installation at a time</p>
+    <div class="impact-cards">
+        <article class="impact-item">
+            <span class="icon" aria-hidden="true">🌱</span>
+            <p class="impact-label">Trees Planted:</p>
+            <h3 class="impact-number">24,500</h3>
+        </article>
+        <article class="impact-item">
+            <span class="icon" aria-hidden="true">🌍</span>
+            <p class="impact-label">CO2 Saved:</p>
+            <h3 class="impact-number">1,200 Tons</h3>
+        </article>
+        <article class="impact-item">
+            <span class="icon" aria-hidden="true">🏠</span>
+            <p class="impact-label">Homes Powered:</p>
+            <h3 class="impact-number">5,800</h3>
+        </article>
+        <article class="impact-item">
+            <span class="icon" aria-hidden="true">⚡</span>
+            <p class="impact-label">MWh Generated:</p>
+            <h3 class="impact-number">45,000</h3>
+        </article>
+    </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <p class="testimonials-subtitle">Real stories from families who went solar</p>
+    <div class="test-cards">
+        <article class="test-card animate-on-scroll">
+            <div class="quote-icon" aria-hidden="true">❝</div>
+            <p class="test-quote">"Switching to SolarMach was the best decision for our family. Our energy bills
+                dropped by 70% and we're making a real environmental impact."</p>
+            <div class="test-author">
+                <span class="author-name">Sarah Johnson</span>
+                <span class="author-role">Homeowner, Portland</span>
+            </div>
+        </article>
+        <article class="test-card animate-on-scroll">
+            <div class="quote-icon" aria-hidden="true">❝</div>
+            <p class="test-quote">"Professional installation, amazing support team, and the system pays for itself.
+                Highly recommend SolarMach to anyone considering solar."</p>
+            <div class="test-author">
+                <span class="author-name">Michael Chen</span>
+                <span class="author-role">Business Owner, Seattle</span>
+            </div>
+        </article>
+        <article class="test-card animate-on-scroll">
+            <div class="quote-icon" aria-hidden="true">❝</div>
+            <p class="test-quote">"The quality and commitment to sustainability is outstanding. We're proud to power
+                our home with clean energy from SolarMach."</p>
+            <div class="test-author">
+                <span class="author-name">Emily Rodriguez</span>
+                <span class="author-role">Teacher, San Francisco</span>
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}
