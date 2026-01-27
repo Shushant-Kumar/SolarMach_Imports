@@ -38,7 +38,7 @@ SOLAR_PANEL_TYPES = {
             "Properties where aesthetics matter",
             "Long-term investments prioritizing efficiency"
         ],
-        "color": "#1a1a2e"
+        "color": "#3D5C2E"
     },
     "polycrystalline": {
         "name": "Polycrystalline Solar Panels",
@@ -70,7 +70,7 @@ SOLAR_PANEL_TYPES = {
             "Agricultural applications",
             "Cost-effective grid-tied systems"
         ],
-        "color": "#16537e"
+        "color": "#3D5C2E"
     },
     "thin_film": {
         "name": "Thin-Film Solar Panels",
@@ -103,7 +103,7 @@ SOLAR_PANEL_TYPES = {
             "Hot climate installations",
             "Carports and canopies"
         ],
-        "color": "#4a5568"
+        "color": "#3D5C2E"
     },
     "bipv": {
         "name": "Building-Integrated Photovoltaics (BIPV)",
@@ -137,7 +137,7 @@ SOLAR_PANEL_TYPES = {
             "Urban environments with design restrictions",
             "Architectural showcase projects"
         ],
-        "color": "#2d5016"
+        "color": "#3D5C2E"
     }
 }
 

@@ -15,10 +15,10 @@ panel.efficiency_range }}), and ideal use cases for your solar energy needs.{% e
             <span class="current">{{ panel.name }}</span>
         </nav>
         <img src="{{ url_for('static', filename=panel.icon) }}" alt="{{ panel.name }}" class="panel-img-hero">
-        <h1 class="animate-fade-in">{{ panel.name }}</h1>
+        <h1 class="animate-fade-in different-color">{{ panel.name }}</h1>
         <p class="hero-tagline animate-fade-in-delay">{{ panel.description }}</p>
         <div class="hero-efficiency">
-            <span class="efficiency-label">Efficiency Range</span>
+            <span class="efficiency-label different-Efficiency-color">Efficiency Range</span>
             <span class="efficiency-value-large">{{ panel.efficiency_range }}</span>
         </div>
     </div>
@@ -107,25 +107,28 @@ panel.efficiency_range }}), and ideal use cases for your solar energy needs.{% e
     <div class="other-panels-grid">
         {% if panel_key != 'monocrystalline' %}
         <a href="{{ url_for('panel_detail', panel_type='monocrystalline') }}" class="other-panel-card">
-            <span class="icon">💎</span>
+            <img src="{{ url_for('static', filename='images/monocrystalline.jpg') }}" alt="Monocrystalline Solar Panels"
+                class="panel-thumb">
             <span class="name">Monocrystalline</span>
         </a>
         {% endif %}
         {% if panel_key != 'polycrystalline' %}
         <a href="{{ url_for('panel_detail', panel_type='polycrystalline') }}" class="other-panel-card">
-            <span class="icon">🔷</span>
+            <img src="{{ url_for('static', filename='images/polycrystalline.jpg') }}" alt="Polycrystalline Solar Panels"
+                class="panel-thumb">
             <span class="name">Polycrystalline</span>
         </a>
         {% endif %}
         {% if panel_key != 'thin_film' %}
         <a href="{{ url_for('panel_detail', panel_type='thin_film') }}" class="other-panel-card">
-            <span class="icon">📄</span>
+            <img src="{{ url_for('static', filename='images/Thin_film.jpeg') }}" alt="Thin-Film Solar Panels"
+                class="panel-thumb">
             <span class="name">Thin-Film</span>
         </a>
         {% endif %}
         {% if panel_key != 'bipv' %}
         <a href="{{ url_for('panel_detail', panel_type='bipv') }}" class="other-panel-card">
-            <span class="icon">🏗️</span>
+            <img src="{{ url_for('static', filename='images/BIPV.jpg') }}" alt="BIPV Solar Panels" class="panel-thumb">
             <span class="name">BIPV</span>
         </a>
         {% endif %}

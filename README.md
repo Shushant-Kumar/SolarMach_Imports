@@ -1,6 +1,10 @@
-# 🌞 SolarMach Imports Website
+# 🌞 SolarMach Imports
 
-A modern, responsive solar energy website with dark mode support, animated organic background shapes, and premium design.
+A modern, responsive Flask-based solar energy website featuring comprehensive information about solar panel technologies, dark mode support, animated backgrounds, and premium eco-focused design.
+
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## ✨ Features
 
@@ -12,6 +16,24 @@ A modern, responsive solar energy website with dark mode support, animated organ
 - **Premium Typography**: Using Merriweather serif and Inter sans-serif fonts
 - **Smooth Animations**: CSS keyframe animations for elegant user experience
 - **Accessibility**: WCAG compliant with keyboard navigation and screen reader support
+
+### ☀️ Solar Technology Content
+
+Comprehensive information about four types of solar panels:
+
+| Panel Type | Efficiency | Best For |
+|------------|------------|----------|
+| **Monocrystalline** | 17-22% | Residential rooftops, premium installations |
+| **Polycrystalline** | 15-17% | Budget-conscious, large-scale projects |
+| **Thin-Film** | 10-13% | Curved surfaces, portable applications |
+| **BIPV** | 10-20% | New construction, architectural integration |
+
+Each panel type includes:
+
+- ⚙️ How it works (technical explanation)
+- ✅ Key advantages
+- 📊 Efficiency ranges
+- 🎯 Ideal use cases
 
 ### 🚀 Interactions
 
@@ -29,87 +51,179 @@ A modern, responsive solar energy website with dark mode support, animated organ
 - **Desktop**: 769px - 1024px
 - **Large Desktop**: 1025px+
 
-## 🏗️ Structure
+## 🏗️ Project Structure
 
 ```
 solar new/
-├── index.html          # Main HTML structure
-├── style.css           # Complete CSS with dark mode & animations
-├── script.js           # JavaScript for interactions & dark mode
-├── hero-image.png      # Hero section image
-└── README.md           # This file
+├── app.py                      # Flask application with routes & panel data
+├── requirements.txt            # Python dependencies
+├── README.md                   # This file
+├── static/
+│   ├── css/
+│   │   └── style.css          # Complete CSS with dark mode & animations
+│   ├── js/
+│   │   └── script.js          # JavaScript for interactions
+│   └── images/
+│       ├── hero-image.png     # Hero section image
+│       ├── monocrystalline.jpg
+│       ├── polycrystalline.jpg
+│       ├── Thin_film.jpeg
+│       └── BIPV.jpg
+└── templates/
+    ├── base.html              # Base template with navigation & footer
+    ├── index.html             # Home/Landing page
+    ├── solar_technology.html  # Solar technology overview
+    ├── panel_detail.html      # Individual panel type details
+    ├── about.html             # About Us page
+    ├── contact.html           # Contact page with form
+    └── 404.html               # Custom error page
 ```
 
-## 🎯 How to Use
+## 🔗 Routes & Endpoints
 
-### Opening the Website
+| Route | Description |
+|-------|-------------|
+| `/` | Home/Landing page |
+| `/solar-technology` | Solar technology overview with all panel types |
+| `/solar-technology/<panel_type>` | Detailed page for each panel type |
+| `/about` | About Us page |
+| `/contact` | Contact page with form |
+| `/api/panels` | JSON API returning all panel data |
+| `/api/panels/<panel_type>` | JSON API for specific panel type |
 
-1. **Double-click** `index.html` to open in your default browser
-2. Or **right-click** → Open With → Choose your browser
+**Available panel types**: `monocrystalline`, `polycrystalline`, `thin_film`, `bipv`
 
-### Features Guide
+## 🚀 Getting Started
 
-#### Dark Mode Toggle
+### Prerequisites
 
-- Click the **🌙/☀️ button** in the top-right navbar
-- Your preference is saved automatically
-- System preference is respected by default
+- Python 3.8 or higher
+- pip (Python package manager)
 
-#### Navigation
+### Installation
 
-- Click any nav link to smoothly scroll to sections
-- On mobile, nav links wrap below the logo
-- Logo is clickable to scroll to top
+1. **Clone the repository**
 
-#### Responsive Behavior
+   ```bash
+   git clone https://github.com/yourusername/solarmach-imports.git
+   cd solarmach-imports
+   ```
 
-- **Desktop**: Hero content and image side-by-side
-- **Tablet**: Slightly reduced spacing and font sizes
-- **Mobile**: Stacked layout, full-width elements
+2. **Create a virtual environment** (recommended)
+
+   ```bash
+   python -m venv venv
+   
+   # Windows
+   venv\Scripts\activate
+   
+   # macOS/Linux
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the application**
+
+   ```bash
+   python app.py
+   ```
+
+5. **Open in browser**
+
+   ```
+   http://localhost:5000
+   ```
+
+## 🎯 Pages Overview
+
+### Home Page (`/`)
+
+- Hero section with call-to-action
+- Solar technology preview cards with images
+- Environmental impact statistics (animated counters)
+- Customer testimonials
+
+### Solar Technology (`/solar-technology`)
+
+- Introduction to solar panel technology
+- Grid of all panel types with key info
+- Comparison table
+- Call-to-action section
+
+### Panel Detail (`/solar-technology/<type>`)
+
+- Detailed hero with panel image
+- How it works explanation
+- Advantages list
+- Efficiency meter visualization
+- Ideal use cases
+- Links to other panel types
+
+### About (`/about`)
+
+- Company mission and story
+- Core values
+- Why choose us features
+
+### Contact (`/contact`)
+
+- Contact information
+- Contact form
+- FAQ section
+
+## 🛠️ API Usage
+
+### Get all panels
+
+```bash
+curl http://localhost:5000/api/panels
+```
+
+### Get specific panel
+
+```bash
+curl http://localhost:5000/api/panels/monocrystalline
+```
+
+### Response format
+
+```json
+{
+  "name": "Monocrystalline Solar Panels",
+  "icon": "images/monocrystalline.jpg",
+  "description": "The most efficient...",
+  "how_it_works": "...",
+  "advantages": ["..."],
+  "efficiency_range": "17% - 22%",
+  "ideal_use_cases": ["..."],
+  "color": "#1a1a2e"
+}
+```
 
 ## 🎨 Customization
 
-### Colors
+### Changing Colors
 
-Edit CSS custom properties in `style.css`:
-
-```css
-:root {
-    --color-accent-primary: #3D5C2E;  /* Primary green */
-    --color-accent-light: #F4D03F;    /* Accent yellow */
-    --color-bg-primary: #FAF5EB;      /* Background */
-    /* ... more colors */
-}
-```
-
-### Fonts
-
-Current fonts:
-
-- **Headings**: Merriweather (serif)
-- **Body**: Inter (sans-serif)
-
-To change, update the Google Fonts link in `index.html` and CSS font-family values.
-
-### Animation Speed
-
-Adjust in CSS custom properties:
+Edit CSS variables in `static/css/style.css`:
 
 ```css
 :root {
-    --transition-fast: 0.2s ease;
-    --transition-base: 0.3s ease;
-    --transition-slow: 0.5s ease;
+    --color-accent-primary: #3D5C2E;
+    --color-accent-hover: #2d4422;
+    --color-accent-light: #F4D03F;
 }
 ```
 
-### Background Shapes
+### Adding New Panel Types
 
-Modify animation in `style.css` under `.shape` classes:
-
-- Change size: `width` and `height`
-- Change colors: `background: linear-gradient(...)`
-- Change movement: Adjust `@keyframes float-*` animations
+1. Add panel data to `SOLAR_PANEL_TYPES` in `app.py`
+2. Add panel image to `static/images/`
+3. Update templates if needed
 
 ## 🔧 Technical Details
 
@@ -120,151 +234,36 @@ Modify animation in `style.css` under `.shape` classes:
 - ✅ Safari 14+
 - ✅ Edge 90+
 
-### Performance
-
-- Animated shapes use CSS transforms (GPU accelerated)
-- Intersection Observer for lazy animations
-- RequestAnimationFrame for smooth scrolling
-- Optimized for reduced motion preferences
-
-### Accessibility
-
-- Semantic HTML5 elements
-- ARIA labels and roles
-- Keyboard navigation support
-- Screen reader announcements
-- Focus indicators
-- Color contrast WCAG AA compliant
-
-## 📝 Content Sections
-
-### 1. Navbar
-
-- Logo/Brand
-- Navigation links (Home, About, Impact, Testimonials)
-- Dark mode toggle
-- Contact button
-
-### 2. Hero Section
-
-- Main headline
-- Descriptive paragraph
-- Two CTA buttons (Primary & Secondary)
-- Hero image with decorative border
-
-### 3. Impact Section
-
-- Environmental statistics
-- Animated counters
-- Icon animations on hover
-
-### 4. Testimonials
-
-- Customer reviews
-- Side-by-side cards on desktop
-- Stacked on mobile
-- Scroll-triggered fade-in
-
-### 5. Footer
-
-- Company info
-- Quick links
-- Contact details
-- Social links
-
-## 🐛 Troubleshooting
-
-### Dark Mode Not Working
-
-- Clear browser cache and reload
-- Check browser console for errors
-- Ensure JavaScript is enabled
-
-### Images Not Showing
-
-- Verify `hero-image.png` exists in the same folder
-- Check image path in `index.html`
-- Try absolute path if needed
-
-### Animations Lag
-
-- Reduce motion in OS accessibility settings
-- Close other browser tabs
-- Update graphics drivers
-
-### Mobile Menu Issues
-
-- Refresh the page
-- Clear browser cache
-- Check viewport meta tag
-
-## 🚀 Deployment
-
-### Option 1: Static Hosting
-
-Upload all files to:
-
-- **Netlify**: Drag & drop folder
-- **Vercel**: Connect GitHub repo
-- **GitHub Pages**: Push to gh-pages branch
-
-### Option 2: Web Server
-
-Upload to your hosting:
-
-```bash
-# Via FTP/SFTP
-# Copy: index.html, style.css, script.js, hero-image.png
-```
-
-### Option 3: Local Testing
-
-```bash
-# Python 3
-python -m http.server 8000
-
-# Node.js
-npx serve .
-
-# Then open: http://localhost:8000
-```
-
-## 🎓 Learning Resources
-
 ### Technologies Used
 
-- HTML5 Semantic Elements
-- CSS3 Custom Properties (Variables)
-- CSS Grid & Flexbox
-- CSS Animations & Transitions
-- Vanilla JavaScript (ES6+)
-- Intersection Observer API
-- Local Storage API
-
-### Further Reading
-
-- [MDN Web Docs](https://developer.mozilla.org/)
-- [CSS Tricks](https://css-tricks.com/)
-- [Web.dev](https://web.dev/)
+- **Backend**: Flask (Python)
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Templating**: Jinja2
+- **Fonts**: Google Fonts (Merriweather, Inter)
 
 ## 📄 License
 
-This is a sample project for SolarMach Imports. Customize as needed for your use case.
+This project is licensed under the MIT License.
 
-## 💡 Tips
+## 🤝 Contributing
 
-1. **Test on real devices**: Emulators don't always match real performance
-2. **Optimize images**: Compress hero-image.png for faster loading
-3. **Add meta tags**: Include Open Graph tags for social sharing
-4. **Add analytics**: Integrate Google Analytics or similar
-5. **Add forms**: Connect Contact button to actual form/service
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 🌟 Credits
+## 📞 Contact
 
-Designed and developed with ☀️ for sustainable energy solutions.
+SolarMach Imports
+
+- Email: <info@solarmach.com>
+- Phone: +1 (555) 123-4567
+- Address: 123 Solar Street, Green City
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: January 2026  
-**Contact**: <info@solarmach.com>
+**Version**: 2.0.0  
+**Last Updated**: January 2026
+
+Made with ☀️ for a sustainable future
