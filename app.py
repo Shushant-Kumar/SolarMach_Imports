@@ -68,8 +68,12 @@ def save_message_to_db(name, email, phone, interest, message, email_sent=False):
 
 def send_email(name, email, phone, interest, message):
     """Send contact form message via SMTP"""
+    # Check if SMTP is configured before attempting
+    if not SMTP_CONFIG['username'] or not SMTP_CONFIG['password']:
+        print("[EMAIL] SMTP not configured, skipping email send")
+        return False
+    
     try:
-        
         # Create the email message
         msg = MIMEMultipart()
         msg['From'] = SMTP_CONFIG['username']
@@ -95,8 +99,8 @@ def send_email(name, email, phone, interest, message):
         
         msg.attach(MIMEText(body, 'plain'))
         
-        # Connect to SMTP server and send email
-        with smtplib.SMTP(SMTP_CONFIG['server'], SMTP_CONFIG['port']) as server:
+        # Connect to SMTP server and send email (with 10 second timeout)
+        with smtplib.SMTP(SMTP_CONFIG['server'], SMTP_CONFIG['port'], timeout=10) as server:
             server.starttls()
             server.login(SMTP_CONFIG['username'], SMTP_CONFIG['password'])
             server.send_message(msg)
