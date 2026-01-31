@@ -303,21 +303,19 @@ document.querySelectorAll('.impact, .testimonials, .footer, .solar-preview, .com
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Get form data
+        // Get form data for validation
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
 
         // Simple validation
         if (!data.name || !data.email || !data.message) {
+            e.preventDefault();
             alert('Please fill in all required fields.');
             return;
         }
 
-        // Show success message (in a real app, you would send this to a server)
-        alert('Thank you for your message! We will get back to you soon.');
-        this.reset();
+        // Allow the form to submit normally to the server
+        // The form will POST to the Flask backend
     });
 }
 

@@ -3,9 +3,113 @@ SolarMach Imports - Flask Application
 A sustainable energy solutions website with informative content about solar technology.
 """
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, flash, redirect, url_for
+import sqlite3
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from datetime import datetime
+import os
 
 app = Flask(__name__)
+
+# Production configuration - Use environment variable or generate random key
+app.secret_key = os.environ.get('SECRET_KEY', os.urandom(24))
+
+# SMTP Configuration - Uses environment variables for production security
+SMTP_CONFIG = {
+    'server': os.environ.get('SMTP_SERVER', 'smtp.gmail.com'),
+    'port': int(os.environ.get('SMTP_PORT', '587')),
+    'username': os.environ.get('SMTP_USERNAME', ''),
+    'password': os.environ.get('SMTP_PASSWORD', ''),
+    'receiver_email': os.environ.get('RECEIVER_EMAIL', '')
+}
+
+# Database setup - Use environment variable for flexibility
+DATABASE = os.environ.get('DATABASE_PATH', 'solarmach_messages.db')
+
+
+def get_db_connection():
+    """Create a database connection"""
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def init_db():
+    """Initialize the database with the messages table"""
+    conn = get_db_connection()
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS contact_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            phone TEXT,
+            interest TEXT,
+            message TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            email_sent BOOLEAN DEFAULT 0
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def save_message_to_db(name, email, phone, interest, message, email_sent=False):
+    """Save a contact message to the database"""
+    conn = get_db_connection()
+    conn.execute('''
+        INSERT INTO contact_messages (name, email, phone, interest, message, email_sent)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ''', (name, email, phone, interest, message, email_sent))
+    conn.commit()
+    conn.close()
+
+
+def send_email(name, email, phone, interest, message):
+    """Send contact form message via SMTP"""
+    try:
+        
+        # Create the email message
+        msg = MIMEMultipart()
+        msg['From'] = SMTP_CONFIG['username']
+        msg['To'] = SMTP_CONFIG['receiver_email']
+        msg['Subject'] = f'New Contact Form Submission from {name}'
+        
+        # Create email body
+        body = f"""
+        New Contact Form Submission
+        ===========================
+        
+        Name: {name}
+        Email: {email}
+        Phone: {phone or 'Not provided'}
+        Interest: {interest or 'Not specified'}
+        
+        Message:
+        {message}
+        
+        ---
+        Submitted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+        """
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Connect to SMTP server and send email
+        with smtplib.SMTP(SMTP_CONFIG['server'], SMTP_CONFIG['port']) as server:
+            server.starttls()
+            server.login(SMTP_CONFIG['username'], SMTP_CONFIG['password'])
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        print(f"[EMAIL] ERROR sending email: {type(e).__name__}: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+# Initialize database when app starts
+init_db()
 
 # Solar panel types data
 SOLAR_PANEL_TYPES = {
@@ -183,10 +287,55 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    """Contact page"""
+    """Contact page with form handling"""
+    if request.method == 'POST':
+        # Get form data
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+        phone = request.form.get('phone', '').strip()
+        interest = request.form.get('interest', '').strip()
+        message = request.form.get('message', '').strip()
+        
+        # Validate required fields
+        if not name or not email or not message:
+            flash('Please fill in all required fields.', 'error')
+            return render_template('contact.html')
+        
+        # Try to send email
+        email_sent = send_email(name, email, phone, interest, message)
+        
+        # Save to database (regardless of email status)
+        save_message_to_db(name, email, phone, interest, message, email_sent)
+        
+        if email_sent:
+            flash('Thank you! Your message has been sent successfully.', 'success')
+        else:
+            flash('Your message has been saved. We will get back to you soon!', 'success')
+        
+        return redirect(url_for('contact'))
+    
     return render_template('contact.html')
+
+
+# @app.route('/api/messages')
+# def api_messages():
+#     """API endpoint to retrieve all contact messages (for admin use)"""
+#     conn = get_db_connection()
+#     messages = conn.execute('SELECT * FROM contact_messages ORDER BY created_at DESC').fetchall()
+#     conn.close()
+    
+#     return jsonify([{
+#         'id': msg['id'],
+#         'name': msg['name'],
+#         'email': msg['email'],
+#         'phone': msg['phone'],
+#         'interest': msg['interest'],
+#         'message': msg['message'],
+#         'created_at': msg['created_at'],
+#         'email_sent': bool(msg['email_sent'])
+#     } for msg in messages])
 
 
 @app.errorhandler(404)
@@ -196,4 +345,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False)
