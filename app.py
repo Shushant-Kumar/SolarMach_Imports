@@ -10,6 +10,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -323,23 +327,23 @@ def contact():
     return render_template('contact.html')
 
 
-# @app.route('/api/messages')
-# def api_messages():
-#     """API endpoint to retrieve all contact messages (for admin use)"""
-#     conn = get_db_connection()
-#     messages = conn.execute('SELECT * FROM contact_messages ORDER BY created_at DESC').fetchall()
-#     conn.close()
+@app.route('/api/messages')
+def api_messages():
+    """API endpoint to retrieve all contact messages (for admin use)"""
+    conn = get_db_connection()
+    messages = conn.execute('SELECT * FROM contact_messages ORDER BY created_at DESC').fetchall()
+    conn.close()
     
-#     return jsonify([{
-#         'id': msg['id'],
-#         'name': msg['name'],
-#         'email': msg['email'],
-#         'phone': msg['phone'],
-#         'interest': msg['interest'],
-#         'message': msg['message'],
-#         'created_at': msg['created_at'],
-#         'email_sent': bool(msg['email_sent'])
-#     } for msg in messages])
+    return jsonify([{
+        'id': msg['id'],
+        'name': msg['name'],
+        'email': msg['email'],
+        'phone': msg['phone'],
+        'interest': msg['interest'],
+        'message': msg['message'],
+        'created_at': msg['created_at'],
+        'email_sent': bool(msg['email_sent'])
+    } for msg in messages])
 
 
 @app.errorhandler(404)
