@@ -50,6 +50,31 @@
         </button>
     </header>
 
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-content">
+            <ul class="mobile-nav-links">
+                <li><a class="{% if request.endpoint == 'home' %}active{% endif %}"
+                        href="{{ url_for('home') }}">Home</a></li>
+                <li><a class="{% if request.endpoint == 'solar_technology' or request.endpoint == 'panel_detail' %}active{% endif %}"
+                        href="{{ url_for('solar_technology') }}">Solar Technology</a></li>
+                <li><a class="{% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About
+                        Us</a></li>
+                <li><a class="{% if request.endpoint == 'contact' %}active{% endif %}"
+                        href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <a href="{{ url_for('contact') }}" class="btn-contact">Contact Us</a>
+                <button class="theme-toggle mobile-theme-btn" id="mobileThemeToggle" aria-label="Toggle dark mode"
+                    title="Toggle dark mode">
+                    <span class="theme-label">Appearance:</span>
+                    <span class="theme-mode">Light</span>
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <main>
         {% block content %}{% endblock %}
     </main>

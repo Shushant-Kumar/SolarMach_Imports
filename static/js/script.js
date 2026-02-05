@@ -7,7 +7,9 @@
 // DARK MODE TOGGLE
 // ============================================
 const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.querySelector('.theme-icon');
+const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const themeIcons = document.querySelectorAll('.theme-icon');
+const themeModeText = document.querySelector('.theme-mode');
 const html = document.documentElement;
 
 // Check for saved theme preference or default to 'light'
@@ -15,27 +17,90 @@ const currentTheme = localStorage.getItem('theme') || 'light';
 html.setAttribute('data-theme', currentTheme);
 updateThemeIcon(currentTheme);
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const theme = html.getAttribute('data-theme');
-        const newTheme = theme === 'light' ? 'dark' : 'light';
+function handleThemeToggle(button) {
+    const theme = html.getAttribute('data-theme');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
 
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
 
-        // Add rotation animation
-        themeToggle.style.transform = 'rotate(360deg)';
+    // Add rotation animation only for desktop toggle (circular button)
+    if (!button.classList.contains('mobile-theme-btn')) {
+        button.style.transform = 'rotate(360deg)';
         setTimeout(() => {
-            themeToggle.style.transform = 'rotate(0deg)';
+            button.style.transform = 'rotate(0deg)';
         }, 300);
-    });
+    }
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => handleThemeToggle(themeToggle));
+}
+
+if (mobileThemeToggle) {
+    mobileThemeToggle.addEventListener('click', () => handleThemeToggle(mobileThemeToggle));
 }
 
 function updateThemeIcon(theme) {
-    if (themeIcon) {
-        themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+    // Update all theme icons
+    themeIcons.forEach(icon => {
+        icon.textContent = theme === 'light' ? '🌙' : '☀️';
+    });
+
+    // Update mobile theme mode text
+    if (themeModeText) {
+        themeModeText.textContent = theme === 'light' ? 'Light' : 'Dark';
     }
+}
+
+// ============================================
+// MOBILE MENU TOGGLE
+// ============================================
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+console.log('Mobile menu elements:', mobileMenuToggle, mobileNavOverlay);
+
+if (mobileMenuToggle && mobileNavOverlay) {
+    // Helper function to close mobile menu
+    function closeMobileMenu() {
+        mobileMenuToggle.classList.remove('active');
+        mobileNavOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    }
+
+    // Helper function to toggle mobile menu
+    function toggleMobileMenu() {
+        mobileMenuToggle.classList.toggle('active');
+        mobileNavOverlay.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+        console.log('Menu toggled, active:', mobileMenuToggle.classList.contains('active'));
+        alert('Menu clicked! Active: ' + mobileMenuToggle.classList.contains('active'));
+    }
+
+    // Toggle menu on hamburger click
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+    // Close menu when clicking on a link
+    const mobileNavLinks = mobileNavOverlay.querySelectorAll('a');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu when clicking on overlay background (not content)
+    mobileNavOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileNavOverlay) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNavOverlay.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
 }
 
 // ============================================
