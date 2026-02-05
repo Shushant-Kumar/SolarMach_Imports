@@ -75,8 +75,6 @@ if (mobileMenuToggle && mobileNavOverlay) {
         mobileMenuToggle.classList.toggle('active');
         mobileNavOverlay.classList.toggle('active');
         document.body.classList.toggle('menu-open');
-        console.log('Menu toggled, active:', mobileMenuToggle.classList.contains('active'));
-        alert('Menu clicked! Active: ' + mobileMenuToggle.classList.contains('active'));
     }
 
     // Toggle menu on hamburger click
